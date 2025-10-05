@@ -51,6 +51,7 @@ use std::fs::{create_dir_all, File};
 use std::io::Read;
 use std::io::Write;
 use std::path::Path;
+use std::time::Duration;
 
 const API_URL_V1: &str = "https://api.openai.com/v1";
 
@@ -60,7 +61,7 @@ pub struct OpenAIClientBuilder {
     api_key: Option<String>,
     organization: Option<String>,
     proxy: Option<String>,
-    timeout: Option<u64>,
+    timeout: Option<Duration>,
     headers: Option<HeaderMap>,
 }
 
@@ -70,7 +71,7 @@ pub struct OpenAIClient {
     api_key: Option<String>,
     organization: Option<String>,
     proxy: Option<String>,
-    timeout: Option<u64>,
+    timeout: Option<Duration>,
     headers: Option<HeaderMap>,
 }
 
@@ -99,7 +100,7 @@ impl OpenAIClientBuilder {
         self
     }
 
-    pub fn with_timeout(mut self, timeout: u64) -> Self {
+    pub fn with_timeout(mut self, timeout: Duration) -> Self {
         self.timeout = Some(timeout);
         self
     }
@@ -145,7 +146,7 @@ impl OpenAIClient {
         let client = client.use_rustls_tls();
 
         let client = if let Some(timeout) = self.timeout {
-            client.timeout(std::time::Duration::from_secs(timeout))
+            client.timeout(timeout)
         } else {
             client
         };
