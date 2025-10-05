@@ -45,11 +45,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         function: types::Function {
             name: String::from("get_coin_price"),
             description: Some(String::from("Get the price of a cryptocurrency")),
-            parameters: types::FunctionParameters {
+            parameters: Some(types::FunctionParameters {
                 schema_type: types::JSONSchemaType::Object,
                 properties: Some(properties),
                 required: Some(vec![String::from("coin")]),
-            },
+            }),
         },
     }]);
 

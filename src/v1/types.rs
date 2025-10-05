@@ -6,7 +6,8 @@ pub struct Function {
     pub name: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    pub parameters: FunctionParameters,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parameters: Option<FunctionParameters>,
 }
 
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq)]
